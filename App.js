@@ -10,15 +10,15 @@ import React from 'react';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/component/Login';
- import Home from './src/component/Home';
+ import MainGoal from './src/component/MainGoal';
 const App  =() => {
  
   const Stack =createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator initialRouteName='MainGoal'>
         <Stack.Screen  name='Login' component={Login}/>
-          <Stack.Screen name="Home" component={Home}/>
+          <Stack.Screen name="MainGoal" component={MainGoal}/>
        </Stack.Navigator>
     </NavigationContainer>
   );
