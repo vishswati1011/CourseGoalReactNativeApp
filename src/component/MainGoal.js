@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { View,StyleSheet,FlatList} from "react-native";
+import { View,StyleSheet,FlatList,Button,StatusBar} from "react-native";
 import GoalInput from '../component/Goal/GoalInput'
 import GoalItem from '../component/Goal/GoalItem'
 const Home =() =>{
     // const {myName}= route.params
     const [courseGoals,setCourseGoal]=useState([]);
+    const [modalIsVisible,setModalIsVisible]=useState(false)
    
     function addGoalHandler (enteredGoalText) {
         console.log("click",courseGoals)
@@ -14,8 +15,15 @@ const Home =() =>{
             text:enteredGoalText,
             id:Math.random().toString()
         }]);
+        setModalIsVisible(false)
     }
 
+    function startAllGoalHandler () {
+        setModalIsVisible(true)
+    }
+    function endAddGoalHandler (){
+        setModalIsVisible(false);
+    }
     function deleteGoalHandler(id){
         console.log("deleteGoalHandler",id)
         setCourseGoal(currentCourseGoal =>{
@@ -24,8 +32,17 @@ const Home =() =>{
     }
     console.log(courseGoals,"after delete")
     return (
-        <View style={styles.appContainner}>
-            <GoalInput onAddGoal={addGoalHandler}/>
+        <>
+        <StatusBar style="light" />      
+              <View style={styles.appContainner}>
+            <Button title="Add new goal" 
+            color="#5e0acc"
+            onPress={startAllGoalHandler}
+            />
+            {modalIsVisible && <GoalInput 
+            visible={modalIsVisible} 
+            onAddGoal={addGoalHandler}
+            onCancel={endAddGoalHandler}/>}
             <View  style={styles.goalContainer}>
 
                 {/**before this commit i added scrollView */}
@@ -47,6 +64,8 @@ const Home =() =>{
                 />
             </View>
         </View>
+        </>
+
     )
 }
 
@@ -56,6 +75,7 @@ const styles = StyleSheet.create({
         flex:1,
         paddingTop:50,
         paddingHorizontal:16,
+        backgroundColor:"#1e085a"
     },
     inputContainer:{
         // flex:,
